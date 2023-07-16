@@ -44,6 +44,10 @@ export class BannerEntity {
     @IsString()
     time: string
 
+    @Column({ type: "text",nullable:true })
+    @IsString()
+    sale: string
+
     @CreateDateColumn({ type: "timestamp" })
     createdAt: Date;
 

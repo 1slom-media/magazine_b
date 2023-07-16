@@ -62,7 +62,7 @@ class UsersController {
                     status: 200,
                     message: "Users login successful",
                     token: sign({ id: foundUsers[0].id }),
-                    data: foundUsers
+                    data: foundUsers[0]
                 })
 
             } else {

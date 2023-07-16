@@ -22,9 +22,9 @@ class BannerController {
     }
 
     public async Post(req: Request, res: Response) {
-        const { title_uz, title_en,title_ru,description_uz,description_en,description_ru,price,image,time,banner_category } = req.body
+        const { title_uz, title_en,title_ru,description_uz,description_en,description_ru,price,image,time,sale,banner_category } = req.body
 
-        const banner = await AppDataSource.getRepository(BannerEntity).createQueryBuilder().insert().into(BannerEntity).values({ title_uz, title_en,title_ru,description_uz,description_en,description_ru,price,image,time,banner_category }).returning("*").execute()
+        const banner = await AppDataSource.getRepository(BannerEntity).createQueryBuilder().insert().into(BannerEntity).values({ title_uz, title_en,title_ru,description_uz,description_en,description_ru,price,image,time,sale,banner_category }).returning("*").execute()
 
         res.json({
             status: 201,
@@ -35,11 +35,11 @@ class BannerController {
 
     public async Put(req: Request, res: Response) {
         try {
-            const { title_uz, title_en,title_ru,description_uz,description_en,description_ru,price,image,time,banner_category } = req.body
+            const { title_uz, title_en,title_ru,description_uz,description_en,description_ru,price,image,time,sale,banner_category } = req.body
             const { id } = req.params
 
             const banner = await AppDataSource.getRepository(BannerEntity).createQueryBuilder().update(BannerEntity)
-                .set({ title_uz, title_en,title_ru,description_uz,description_en,description_ru,price,image,time,banner_category })
+                .set({ title_uz, title_en,title_ru,description_uz,description_en,description_ru,price,image,time,sale,banner_category })
                 .where({ id })
                 .returning("*")
                 .execute()

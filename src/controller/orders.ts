@@ -60,11 +60,11 @@ class ProductsController {
     }
 
     public async Post(req: Request, res: Response) {
-        const { status,type_payment,type_sell,location,addition_phone,date,term_date,comentary,users,products,admins } = req.body
+        const { status,type_payment,type_sell,location,addition_phone,date,term_date,comentary,price,users,products,admins } = req.body
 
         
 
-        const orders = await AppDataSource.getRepository(OrdersEntity).createQueryBuilder().insert().into(OrdersEntity).values({status,type_payment,type_sell,location,addition_phone,date,term_date,comentary,users,products,admins }).returning("*").execute()
+        const orders = await AppDataSource.getRepository(OrdersEntity).createQueryBuilder().insert().into(OrdersEntity).values({status,type_payment,type_sell,location,addition_phone,date,term_date,comentary,price,users,products,admins }).returning("*").execute()
 
         res.json({
             status: 201,
@@ -75,11 +75,11 @@ class ProductsController {
 
     public async Put(req: Request, res: Response) {
         try {
-            const { status,type_payment,type_sell,location,addition_phone,date,term_date,comentary,users,products,admins } = req.body
+            const { status,type_payment,type_sell,location,addition_phone,date,term_date,comentary,price,users,products,admins } = req.body
             const { id } = req.params
 
             const orders = await AppDataSource.getRepository(OrdersEntity).createQueryBuilder().update(OrdersEntity)
-                .set({ status,type_payment,type_sell,location,addition_phone,date,term_date,comentary,users,products,admins })
+                .set({ status,type_payment,type_sell,location,addition_phone,date,term_date,comentary,price,users,products,admins })
                 .where({ id })
                 .returning("*")
                 .execute()

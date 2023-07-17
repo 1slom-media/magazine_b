@@ -35,6 +35,10 @@ export class OrdersEntity {
 
     @Column({ type: "varchar", length: 100,nullable:true })
     @IsString()
+    price: string
+
+    @Column({ type: "varchar", length: 100,nullable:true })
+    @IsString()
     term_date: string 
 
     @Column({ type: "text",nullable:true })

@@ -25,6 +25,10 @@ export class BrandsEntity {
     @IsString()
     country: string
 
+    @Column({ type: "varchar" })
+    @IsString()
+    image: string
+
     @CreateDateColumn({ type: "timestamp" })
     createdAt: Date;
 

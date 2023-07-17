@@ -39,13 +39,13 @@ class BrandsController {
     }
 
     public async Post(req: Request, res: Response) {
-        let { brands_name_uz, brands_name_en, brands_name_ru, country } = req.body
+        let { brands_name_uz, brands_name_en, brands_name_ru, country,image } = req.body
 
         brands_name_uz=brands_name_uz.toLowerCase()
         brands_name_en=brands_name_en.toLowerCase()
         brands_name_ru=brands_name_ru.toLowerCase()
         
-        const brands = await AppDataSource.getRepository(BrandsEntity).createQueryBuilder().insert().into(BrandsEntity).values({ brands_name_uz, brands_name_en, brands_name_ru, country }).returning("*").execute()
+        const brands = await AppDataSource.getRepository(BrandsEntity).createQueryBuilder().insert().into(BrandsEntity).values({ brands_name_uz, brands_name_en, brands_name_ru, country,image }).returning("*").execute()
 
         res.json({
             status: 201,
@@ -56,11 +56,11 @@ class BrandsController {
 
     public async Put(req: Request, res: Response) {
         try {
-            const { brands_name_uz, brands_name_en, brands_name_ru, country } = req.body
+            const { brands_name_uz, brands_name_en, brands_name_ru, country,image } = req.body
             const { id } = req.params
 
             const brands = await AppDataSource.getRepository(BrandsEntity).createQueryBuilder().update(BrandsEntity)
-                .set({ brands_name_uz, brands_name_en, brands_name_ru, country })
+                .set({ brands_name_uz, brands_name_en, brands_name_ru, country,image })
                 .where({ id })
                 .returning("*")
                 .execute()

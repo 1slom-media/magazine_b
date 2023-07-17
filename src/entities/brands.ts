@@ -25,7 +25,7 @@ export class BrandsEntity {
     @IsString()
     country: string
 
-    @Column({ type: "varchar" })
+    @Column({ type: "varchar",nullable:true })
     @IsString()
     image: string
 

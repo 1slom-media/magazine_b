@@ -1,5 +1,5 @@
 import { IsString, isArray} from "class-validator";
-import { Entity, PrimaryGeneratedColumn, Column,CreateDateColumn,UpdateDateColumn, OneToMany, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column,CreateDateColumn,UpdateDateColumn, OneToMany, ManyToOne, ManyToMany, JoinTable } from "typeorm";
 import { UsersEntity } from "./users";
 import { ProductsEntity } from "./products";
 import { AdminEntity } from "./admin";
@@ -48,8 +48,9 @@ export class OrdersEntity {
     @ManyToOne(() => UsersEntity, (user) => user.orders,{nullable:false,onDelete:"CASCADE",onUpdate:"CASCADE"})
     users: UsersEntity
 
-    @ManyToOne(() => ProductsEntity, (product) => product.orders,{nullable:false,onDelete:"CASCADE",onUpdate:"CASCADE"})
-    products: ProductsEntity
+    @ManyToMany(() => ProductsEntity,{nullable:false,onDelete:"CASCADE",onUpdate:"CASCADE"})
+    @JoinTable()
+    products: ProductsEntity[]
 
     @ManyToOne(() =>AdminEntity , (admins) => admins.orders,{onDelete:"CASCADE",onUpdate:"CASCADE"})
     admins:AdminEntity 

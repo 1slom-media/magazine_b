@@ -43,8 +43,7 @@ class ProductsController {
             relations: {
                 category: true,
                 brands: true,
-                sub_category: true,
-                orders: true
+                sub_category: true
             }, where: { id: +id }
         }));
     }
@@ -58,8 +57,7 @@ class ProductsController {
             relations: {
                 category: true,
                 brands: true,
-                sub_category: true,
-                orders: true
+                sub_category: true
             }, where: [{ product_name_uz: Like(`${search}%`) },
             { product_name_en: Like(`${search}%`) },
             { product_name_ru: Like(`${search}%`) }

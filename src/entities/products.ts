@@ -1,5 +1,5 @@
 import { IsNumber, IsString } from "class-validator";
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, ManyToMany } from "typeorm";
 import { CategoryEntity } from "./category";
 import { SubCategoryEntity } from "./sub_category";
 import { BrandsEntity } from "./brands";
@@ -108,7 +108,4 @@ export class ProductsEntity {
 
     @ManyToOne(() => BrandsEntity, (brands) => brands.products,{nullable:false,onDelete:"CASCADE",onUpdate:"CASCADE"})
     brands: BrandsEntity
-
-    @OneToMany(()=>OrdersEntity,(orders)=>orders.products)
-    orders:OrdersEntity[]
 }

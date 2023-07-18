@@ -62,14 +62,26 @@ class ProductsController {
     public async Post(req: Request, res: Response) {
         const { status,type_payment,type_sell,location,addition_phone,term_date,comentary,price,count,users,products,admins } = req.body
 
-        
+        const orders=new OrdersEntity()
+        orders.status=status
+        orders.type_payment=type_payment
+        orders.type_sell=type_sell
+        orders.location=location
+        orders.addition_phone=addition_phone
+        orders.term_date=term_date
+        orders.comentary=comentary
+        orders.price=price
+        orders.count=count
+        orders.users=users
+        orders.admins=admins
+        orders.products=products
 
-        const orders = await AppDataSource.getRepository(OrdersEntity).createQueryBuilder().insert().into(OrdersEntity).values({status,type_payment,type_sell,location,addition_phone,term_date,comentary,price,count,users,products,admins }).returning("*").execute()
+        await AppDataSource.manager.save(orders)
 
         res.json({
             status: 201,
             message: "orders created",
-            data: orders.raw[0]
+            data:orders
         })
     }
 

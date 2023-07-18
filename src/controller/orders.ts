@@ -23,7 +23,7 @@ class ProductsController {
             query = query.andWhere('orders.type_sell=:type_sell', { type_sell: typeSell })
         }
         if (date && date.length) {
-            query = query.andWhere('orders.date=:order_date', { order_date: date })
+            query = query.andWhere('orders.createdAt=:order_date', { order_date: date })
         }
 
         const orders = await query.getMany();
@@ -60,11 +60,11 @@ class ProductsController {
     }
 
     public async Post(req: Request, res: Response) {
-        const { status,type_payment,type_sell,location,addition_phone,date,term_date,comentary,price,count,users,products,admins } = req.body
+        const { status,type_payment,type_sell,location,addition_phone,term_date,comentary,price,count,users,products,admins } = req.body
 
         
 
-        const orders = await AppDataSource.getRepository(OrdersEntity).createQueryBuilder().insert().into(OrdersEntity).values({status,type_payment,type_sell,location,addition_phone,date,term_date,comentary,price,count,users,products,admins }).returning("*").execute()
+        const orders = await AppDataSource.getRepository(OrdersEntity).createQueryBuilder().insert().into(OrdersEntity).values({status,type_payment,type_sell,location,addition_phone,term_date,comentary,price,count,users,products,admins }).returning("*").execute()
 
         res.json({
             status: 201,
@@ -75,11 +75,11 @@ class ProductsController {
 
     public async Put(req: Request, res: Response) {
         try {
-            const { status,type_payment,type_sell,location,addition_phone,date,term_date,comentary,price,count,users,products,admins } = req.body
+            const { status,type_payment,type_sell,location,addition_phone,term_date,comentary,price,count,users,products,admins } = req.body
             const { id } = req.params
 
             const orders = await AppDataSource.getRepository(OrdersEntity).createQueryBuilder().update(OrdersEntity)
-                .set({ status,type_payment,type_sell,location,addition_phone,date,term_date,comentary,price,count,users,products,admins })
+                .set({ status,type_payment,type_sell,location,addition_phone,term_date,comentary,price,count,users,products,admins })
                 .where({ id })
                 .returning("*")
                 .execute()

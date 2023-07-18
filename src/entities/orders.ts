@@ -51,7 +51,7 @@ export class OrdersEntity {
     @ManyToOne(() => ProductsEntity, (product) => product.orders,{nullable:false,onDelete:"CASCADE",onUpdate:"CASCADE"})
     products: ProductsEntity
 
-    @ManyToOne(() =>AdminEntity , (admins) => admins.orders,{nullable:false,onDelete:"CASCADE",onUpdate:"CASCADE"})
+    @ManyToOne(() =>AdminEntity , (admins) => admins.orders,{onDelete:"CASCADE",onUpdate:"CASCADE"})
     admins:AdminEntity 
 
     @CreateDateColumn({ type: "timestamp" })

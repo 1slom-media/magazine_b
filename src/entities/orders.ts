@@ -45,6 +45,10 @@ export class OrdersEntity {
     @IsString()
     comentary: string
 
+    @Column({ type: "text",nullable:true })
+    @IsString()
+    count: string
+
     @ManyToOne(() => UsersEntity, (user) => user.orders,{nullable:false,onDelete:"CASCADE",onUpdate:"CASCADE"})
     users: UsersEntity
 

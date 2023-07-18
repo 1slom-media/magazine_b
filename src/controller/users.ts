@@ -25,14 +25,14 @@ class UsersController {
     }
 
     public async SignUp(req: Request, res: Response) {
-        let { name, surname, phone,email } = req.body
+        let { name, surname, phone,email,image } = req.body
 
         const foundUsers = await AppDataSource.getRepository(UsersEntity).find({
             where:{phone}
         })
         
         if(!foundUsers.length){
-            const users = await AppDataSource.getRepository(UsersEntity).createQueryBuilder().insert().into(UsersEntity).values({ name, surname, phone,email }).returning("*").execute()
+            const users = await AppDataSource.getRepository(UsersEntity).createQueryBuilder().insert().into(UsersEntity).values({ name, surname, phone,email,image }).returning("*").execute()
     
             res.json({
                 status: 201,
@@ -81,10 +81,10 @@ class UsersController {
     public async Put(req: Request, res: Response) {
         try {
             const { id } = req.params
-            let { name, surname, phone,email } = req.body
+            let { name, surname, phone,email,image } = req.body
 
             const users = await AppDataSource.getRepository(UsersEntity).createQueryBuilder().update(UsersEntity)
-                .set({ name, surname, phone,email })
+                .set({ name, surname, phone,email,image })
                 .where({ id })
                 .returning("*")
                 .execute()

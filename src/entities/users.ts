@@ -24,6 +24,10 @@ export class UsersEntity {
     @IsString()
     email: string
 
+    @Column({ type: "text",nullable:true })
+    @IsString()
+    image: string
+
     @OneToMany(()=>OrdersEntity,(orders)=>orders.users,{onDelete:"CASCADE",onUpdate:"CASCADE"})
     orders:OrdersEntity[]
 

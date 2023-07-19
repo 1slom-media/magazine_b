@@ -10,6 +10,7 @@ class UsersController {
         res.json(await AppDataSource.getRepository(UsersEntity).find({
             relations: {
                 orders: true,
+                comments:true
             },order:{id:"ASC"}
         }));
     }
@@ -19,7 +20,8 @@ class UsersController {
 
         res.json(await AppDataSource.getRepository(UsersEntity).find({
             relations: {
-                orders: true
+                orders: true,
+                comments:true
             }, where: { id: +id }
         }));
     }

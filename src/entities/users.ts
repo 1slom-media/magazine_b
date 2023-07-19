@@ -1,6 +1,7 @@
 import { IsString} from "class-validator";
 import { Entity, PrimaryGeneratedColumn, Column,CreateDateColumn,UpdateDateColumn, ManyToOne, OneToMany } from "typeorm";
 import { OrdersEntity } from "./orders";
+import { CommentsEntity } from "./comments";
 
 
 @Entity({ name: "users" })
@@ -30,6 +31,9 @@ export class UsersEntity {
 
     @OneToMany(()=>OrdersEntity,(orders)=>orders.users,{onDelete:"CASCADE",onUpdate:"CASCADE"})
     orders:OrdersEntity[]
+
+    @OneToMany(()=>CommentsEntity,(comments)=>comments.users,{onDelete:"CASCADE",onUpdate:"CASCADE"})
+    comments:CommentsEntity[]
 
     @CreateDateColumn({ type: "timestamp" })
     createdAt: Date;

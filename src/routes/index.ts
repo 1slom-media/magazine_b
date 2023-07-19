@@ -8,6 +8,7 @@ import sub_category from "../controller/sub_category";
 import products from "../controller/products";
 import orders from "../controller/orders";
 import users from "../controller/users";
+import comments from "../controller/comments";
 
 const router = Router()
 
@@ -76,5 +77,12 @@ router.get('/users/:id',users.GetId)
 router.post('/register',users.SignUp)
 router.post('/login',users.SignIn)
 router.put('/users/:id',users.Put)
+
+// route comments
+router.get("/comments",comments.Get)
+router.get("/comments/:id",comments.GetId)
+router.post("/comments",comments.Post)
+router.put("/comments/:id",comments.Put)
+router.delete("/comments/:id",comments.Delete)
 
 export default router;

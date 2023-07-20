@@ -9,6 +9,7 @@ import { BannerCategoryEntity } from "./entities/banner_category"
 import { BannerEntity } from "./entities/banner"
 import { OrdersEntity } from "./entities/orders"
 import { AdminEntity } from "./entities/admin"
+import { CommentsEntity } from "./entities/comments"
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -19,7 +20,7 @@ export const AppDataSource = new DataSource({
     database: "magazine_b",
     synchronize: true,
     logging: false,
-    entities: [UsersEntity,CategoryEntity,SubCategoryEntity,BrandsEntity,ProductsEntity,BannerCategoryEntity,BannerEntity,OrdersEntity,AdminEntity],
+    entities: [UsersEntity,CategoryEntity,SubCategoryEntity,BrandsEntity,ProductsEntity,BannerCategoryEntity,BannerEntity,OrdersEntity,AdminEntity,CommentsEntity],
     migrations: [],
     subscribers: [],
 })

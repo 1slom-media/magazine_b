@@ -21,6 +21,10 @@ export class CategoryEntity {
     @IsString()
     category_ru: string
 
+    @Column({ type: "varchar",nullable:true})
+    @IsString()
+    image: string
+
     @CreateDateColumn({ type: "timestamp" })
     createdAt: Date;
 

@@ -10,7 +10,7 @@ class AdminController {
         res.json(await AppDataSource.getRepository(AdminEntity).find({
             relations: {
                 orders: true,
-            },order:{id:"ASC"}
+            },where:{status:"active"},order:{id:"ASC"}
         }));
     }
 
@@ -20,7 +20,7 @@ class AdminController {
         res.json(await AppDataSource.getRepository(AdminEntity).find({
             relations: {
                 orders: true
-            }, where: { id: +id }
+            },where: { id: +id,status:"active" }
         }));
     }
 
@@ -29,7 +29,7 @@ class AdminController {
         password = await hashed(password);
 
         const foundAdmin = await AppDataSource.getRepository(AdminEntity).find({
-            where:{login}
+            where:{login,status:"active"}
         })
         
         if(!foundAdmin.length){
@@ -54,7 +54,7 @@ class AdminController {
             const { login, password } = req.body
 
             const foundAdmin = await AppDataSource.getRepository(AdminEntity).findOne({
-                where: { login }
+                where: { login,status:"active" }
             })
              
             if (foundAdmin && await compare(password, foundAdmin.password) == true) {
@@ -92,6 +92,26 @@ class AdminController {
             res.json({
                 status: 200,
                 message: "admin updated",
+                data: admin.raw[0]
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    public async Delete(req: Request, res: Response) {
+        try {
+            const { id } = req.params
+
+            const admin = await AppDataSource.getRepository(AdminEntity).createQueryBuilder().update(AdminEntity)
+                .set({ status:"not_active"})
+                .where({ id })
+                .returning("*")
+                .execute()
+
+            res.json({
+                status: 200,
+                message: "admin deleted",
                 data: admin.raw[0]
             })
         } catch (error) {

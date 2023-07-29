@@ -4,6 +4,7 @@ import { CategoryEntity } from "./category";
 import { SubCategoryEntity } from "./sub_category";
 import { BrandsEntity } from "./brands";
 import { OrdersEntity } from "./orders";
+import { BannerEntity } from "./banner";
  
 @Entity({ name: "products" })
 export class ProductsEntity {
@@ -100,12 +101,15 @@ export class ProductsEntity {
     @UpdateDateColumn({ type: "timestamp" })
     updateAt: Date;
 
-    @ManyToOne(() => CategoryEntity, (category) => category.products,{nullable:false,onDelete:"CASCADE",onUpdate:"CASCADE"})
+    @ManyToOne(() => CategoryEntity, (category) => category.products,{onDelete:"CASCADE",onUpdate:"CASCADE"})
     category: CategoryEntity
 
-    @ManyToOne(() => SubCategoryEntity, (sub_category) => sub_category.products,{nullable:false,onDelete:"CASCADE",onUpdate:"CASCADE"})
+    @ManyToOne(() => SubCategoryEntity, (sub_category) => sub_category.products,{onDelete:"CASCADE",onUpdate:"CASCADE"})
     sub_category: SubCategoryEntity
 
-    @ManyToOne(() => BrandsEntity, (brands) => brands.products,{nullable:false,onDelete:"CASCADE",onUpdate:"CASCADE"})
+    @ManyToOne(() => BrandsEntity, (brands) => brands.products,{onDelete:"CASCADE",onUpdate:"CASCADE"})
     brands: BrandsEntity
+
+    @OneToMany(()=>BannerEntity,(banner)=>banner.products,{onDelete:"CASCADE",onUpdate:"CASCADE"})
+    banner:BannerEntity[]
 }

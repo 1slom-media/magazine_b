@@ -1,6 +1,7 @@
 import { IsString } from "class-validator";
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from "typeorm";
 import { BannerCategoryEntity } from "./banner_category";
+import { ProductsEntity } from "./products";
 
 
 @Entity({ name: "banner" })
@@ -54,6 +55,9 @@ export class BannerEntity {
     @UpdateDateColumn({ type: "timestamp" })
     updateAt: Date;
 
-    @ManyToOne(() => BannerCategoryEntity, (banner_category) => banner_category.banner,{nullable:false,onDelete:"CASCADE",onUpdate:"CASCADE"})
+    @ManyToOne(() => BannerCategoryEntity, (banner_category) => banner_category.banner,{onDelete:"CASCADE",onUpdate:"CASCADE"})
     banner_category: BannerCategoryEntity
+
+    @ManyToOne(() => ProductsEntity, (products) => products.banner,{onDelete:"CASCADE",onUpdate:"CASCADE"})
+    products: ProductsEntity
 }

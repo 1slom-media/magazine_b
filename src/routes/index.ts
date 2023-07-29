@@ -18,6 +18,7 @@ router.post("/postadmin",admin.Post);
 router.post("/loginadmin",admin.SignIn);
 router.get("/admins/:id",admin.GetId);
 router.put("/admins/:id",admin.Put);
+router.delete("/admins/:id",admin.Delete);
 
 // route banner_category
 router.get("/banner_category",banner_category.Get)

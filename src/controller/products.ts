@@ -28,8 +28,8 @@ class ProductsController {
         if (price && price == "min") {
             query = query.orderBy('products.price', 'ASC')
         }
-        if (min && max && Number(min) >= 0 && Number(max) > 0) {
-            query = query.andWhere('products.price>=:min_price', { min_price: min }).andWhere('products.price<=:max_price', { max_price: max })
+        if (min && max && +min>=0 && +max>0) {
+            query = query.andWhere('products.price>=:min_price', { min_price: +min }).andWhere('products.price<=:max_price', { max_price: +max })
         }
 
         const products = await query.getMany();

@@ -34,9 +34,9 @@ export class ProductsEntity {
     @IsString()
     description_ru: string
 
-    @Column({ type: "varchar", length: 100 })
+    @Column({ type: "int" })
     @IsString()
-    price: string
+    price: number
 
     @Column({ type: "varchar" })
     @IsNumber()

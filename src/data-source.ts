@@ -10,14 +10,16 @@ import { BannerEntity } from "./entities/banner"
 import { OrdersEntity } from "./entities/orders"
 import { AdminEntity } from "./entities/admin"
 import { CommentsEntity } from "./entities/comments"
+import dotenv from 'dotenv'
+dotenv.config()
 
 export const AppDataSource = new DataSource({
     type: "postgres",
-    host: "localhost",
-    port: 5432,
-    username: "postgres",
-    password: "1sU*DtM&9RfB",
-    database: "magazine_b",
+    host: process.env.PG_HOST,
+    port: Number(process.env.PG_PORT),
+    username: process.env.PG_USER,
+    password: process.env.PG_PASSWORD,
+    database: process.env.PG_DATABASE,
     synchronize: true,
     logging: false,
     entities: [UsersEntity,CategoryEntity,SubCategoryEntity,BrandsEntity,ProductsEntity,BannerCategoryEntity,BannerEntity,OrdersEntity,AdminEntity,CommentsEntity],

@@ -76,6 +76,7 @@ router.delete("/orders/:id",orders.Delete)
 router.get('/users',users.Get)
 router.get('/users/:id',users.GetId)
 router.post('/register',users.SignUp)
+router.post('/verify',users.VerifyPhone)
 router.post('/login',users.SignIn)
 router.put('/users/:id',users.Put)
 

@@ -38,7 +38,7 @@ class UsersController {
             const users = await AppDataSource.getRepository(UsersEntity).createQueryBuilder().insert().into(UsersEntity).values({ name, surname, phone, email, image }).returning("*").execute()
             const code = randomNum();
             redis.set(phone, code, 'EX', 120);
-            sms.send(phone, `Welcome ! Your  verification code ✔ : ${code}`)
+            sms.send(phone, `Для завершения процедуры регистрации на https://tools-group.uz пожалуйста, введите код: ${code} `)
             res.json({
                 status: 201,
                 message: "Users created",
@@ -90,7 +90,7 @@ class UsersController {
         if (foundUser) {
             const code = randomNum();
             redis.set(phone, code, 'EX', 120);
-            sms.send(phone, `Welcome ! Your  verification code ✔ : ${code}`)
+            sms.send(phone, `Для завершения процедуры регистрации на https://tools-group.uz пожалуйста, введите код: ${code} `)
             return res
                 .status(200)
                 .json({

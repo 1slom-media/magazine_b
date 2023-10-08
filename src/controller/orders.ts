@@ -60,7 +60,7 @@ class ProductsController {
     }
 
     public async Post(req: Request, res: Response) {
-        const { status,type_payment,type_sell,location,addition_phone,term_date,comentary,price,count,users,products,admins } = req.body
+        const { status,type_payment,type_sell,location,addition_phone,term_date,comentary,price,count,users,products,admins,indeks } = req.body
 
         const orders=new OrdersEntity()
         orders.status=status
@@ -71,6 +71,7 @@ class ProductsController {
         orders.term_date=term_date
         orders.comentary=comentary
         orders.price=price
+        orders.indeks=indeks
         orders.count=count
         orders.users=users
         orders.admins=admins
@@ -87,19 +88,37 @@ class ProductsController {
 
     public async Put(req: Request, res: Response) {
         try {
-            const { status,type_payment,type_sell,location,addition_phone,term_date,comentary,price,count,users,products,admins } = req.body
+            const { status,type_payment,type_sell,location,addition_phone,term_date,comentary,price,count,users,products,admins,indeks } = req.body
             const { id } = req.params
 
-            const orders = await AppDataSource.getRepository(OrdersEntity).createQueryBuilder().update(OrdersEntity)
-                .set({ status,type_payment,type_sell,location,addition_phone,term_date,comentary,price,count,users,products,admins })
-                .where({ id })
-                .returning("*")
-                .execute()
+            const orders = await AppDataSource.getRepository(OrdersEntity).findOne({
+                where: { id: +id }, relations: {
+                    products: true,
+                    users: true,
+                    admins:true
+                }
+            })
+
+            orders.status = status != undefined ? status : orders.status
+            orders.products = products != undefined ? products : orders.products
+            orders.indeks = indeks != undefined ? indeks : orders.indeks
+            orders.price = price != undefined ? price : orders.price
+            orders.type_payment = type_payment != undefined ? type_payment : orders.type_payment
+            orders.type_sell = type_sell != undefined ? type_sell : orders.type_sell
+            orders.location = location != undefined ? location : orders.location
+            orders.addition_phone = addition_phone != undefined ? addition_phone : orders.addition_phone
+            orders.term_date = term_date != undefined ? term_date : orders.term_date
+            orders.comentary = comentary != undefined ? comentary : orders.comentary
+            orders.count = count != undefined ? count : orders.count
+            orders.users = users != undefined ? users : orders.users.id
+            orders.admins = admins != undefined ? admins : orders.admins.id
+
+            await AppDataSource.manager.save(orders)
 
             res.json({
                 status: 200,
                 message: "orders updated",
-                data: orders.raw[0]
+                data: orders
             })
         } catch (error) {
             console.log(error);

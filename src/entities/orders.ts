@@ -45,7 +45,7 @@ export class OrdersEntity {
     @IsString()
     count: string
 
-    @Column({ type: "simple-array",nullable:true })
+    @Column({ type: "jsonb",nullable:true })
     indeks: object[]
 
     @ManyToOne(() => UsersEntity, (user) => user.orders,{nullable:false,onDelete:"CASCADE",onUpdate:"CASCADE"})

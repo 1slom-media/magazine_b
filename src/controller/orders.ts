@@ -60,42 +60,42 @@ class ProductsController {
     }
 
     public async Post(req: Request, res: Response) {
-        const { status,type_payment,type_sell,location,addition_phone,term_date,comentary,price,count,users,products,admins,indeks } = req.body
+        const { status, type_payment, type_sell, location, addition_phone, term_date, comentary, price, count, users, products, admins, indeks } = req.body
 
-        const orders=new OrdersEntity()
-        orders.status=status
-        orders.type_payment=type_payment
-        orders.type_sell=type_sell
-        orders.location=location
-        orders.addition_phone=addition_phone
-        orders.term_date=term_date
-        orders.comentary=comentary
-        orders.price=price
-        orders.indeks=indeks
-        orders.count=count
-        orders.users=users
-        orders.admins=admins
-        orders.products=products
+        const orders = new OrdersEntity()
+        orders.status = status
+        orders.type_payment = type_payment
+        orders.type_sell = type_sell
+        orders.location = location
+        orders.addition_phone = addition_phone
+        orders.term_date = term_date
+        orders.comentary = comentary
+        orders.price = price
+        orders.indeks = indeks
+        orders.count = count
+        orders.users = users
+        orders.admins = admins
+        orders.products = products
 
         await AppDataSource.manager.save(orders)
 
         res.json({
             status: 201,
             message: "orders created",
-            data:orders
+            data: orders
         })
     }
 
     public async Put(req: Request, res: Response) {
         try {
-            const { status,type_payment,type_sell,location,addition_phone,term_date,comentary,price,count,users,products,admins,indeks } = req.body
+            const { status, type_payment, type_sell, location, addition_phone, term_date, comentary, price, count, users, products, admins, indeks } = req.body
             const { id } = req.params
 
             const orders = await AppDataSource.getRepository(OrdersEntity).findOne({
                 where: { id: +id }, relations: {
                     products: true,
                     users: true,
-                    admins:true
+                    admins: true
                 }
             })
 
@@ -134,6 +134,26 @@ class ProductsController {
             res.json({
                 status: 200,
                 message: "orders deleted",
+                data: orders.raw[0]
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    public async Refusal(req: Request, res: Response) {
+        try {
+            const { id } = req.params
+
+            const orders = await AppDataSource.getRepository(OrdersEntity).createQueryBuilder().update(  OrdersEntity)
+                .set({ status:"отказано"})
+                .where({ id })
+                .returning("*")
+                .execute()
+
+            res.json({
+                status: 200,
+                message: "orders refusal",
                 data: orders.raw[0]
             })
         } catch (error) {

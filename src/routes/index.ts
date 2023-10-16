@@ -70,7 +70,8 @@ router.get("/searchorder",orders.GetSearch)
 router.get("/orders/:id",orders.GetId)
 router.post("/orders",orders.Post)
 router.put("/orders/:id",orders.Put)
-router.delete("/orders/:id",orders.Delete)
+router.delete("/delete/:id",orders.Delete)
+router.delete("/refusal/:id",orders.Refusal)
 
 // route users
 router.get('/users',users.Get)

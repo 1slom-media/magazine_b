@@ -5,9 +5,7 @@ import { CommentsEntity } from '../entities/comments';
 class CommentsController {
     public async Get(req: Request, res: Response): Promise<void> {
         res.json(await AppDataSource.getRepository(CommentsEntity).find({
-            relations: {
-                users:true
-            }, order: { id: "ASC" }
+            order: { id: "ASC" }
         }));
     }
 
@@ -15,16 +13,14 @@ class CommentsController {
         const { id } = req.params
 
         res.json(await AppDataSource.getRepository(CommentsEntity).find({
-            relations: {
-                users:true
-            }, where: { id: +id }
+            where: { id: +id }
         }));
     }
 
     public async Post(req: Request, res: Response) {
-        const { comentary,users } = req.body
+        const { comentary_uz, comentary_en, comentary_ru, users } = req.body
 
-        const comments = await AppDataSource.getRepository(CommentsEntity).createQueryBuilder().insert().into(CommentsEntity).values({comentary,users}).returning("*").execute()
+        const comments = await AppDataSource.getRepository(CommentsEntity).createQueryBuilder().insert().into(CommentsEntity).values({ comentary_uz, comentary_en, comentary_ru, users }).returning("*").execute()
 
         res.json({
             status: 201,
@@ -35,11 +31,11 @@ class CommentsController {
 
     public async Put(req: Request, res: Response) {
         try {
-            const { comentary,users } = req.body
+            const { comentary_uz, comentary_en, comentary_ru, users } = req.body
             const { id } = req.params
 
             const comments = await AppDataSource.getRepository(CommentsEntity).createQueryBuilder().update(CommentsEntity)
-                .set({ comentary,users })
+                .set({ comentary_uz, comentary_en, comentary_ru, users })
                 .where({ id })
                 .returning("*")
                 .execute()

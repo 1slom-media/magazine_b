@@ -10,8 +10,7 @@ class UsersController {
     public async Get(req: Request, res: Response): Promise<void> {
         res.json(await AppDataSource.getRepository(UsersEntity).find({
             relations: {
-                orders: true,
-                comments: true
+                orders: true
             }, order: { id: "ASC" }
         }));
     }
@@ -21,8 +20,7 @@ class UsersController {
 
         res.json(await AppDataSource.getRepository(UsersEntity).find({
             relations: {
-                orders: true,
-                comments: true
+                orders: true
             }, where: { id: +id }
         }));
     }

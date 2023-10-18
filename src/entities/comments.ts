@@ -10,15 +10,23 @@ export class CommentsEntity {
 
     @Column({ type: "varchar" })
     @IsString()
-    comentary: string
+    comentary_uz: string
+
+    @Column({ type: "varchar" })
+    @IsString()
+    comentary_ru: string
+
+    @Column({ type: "varchar" })
+    @IsString()
+    comentary_en: string 
+
+    @Column({ type: "varchar" })
+    @IsString()
+    users: string 
 
     @CreateDateColumn({ type: "timestamp" })
     createdAt: Date;
 
     @UpdateDateColumn({ type: "timestamp" })
     updateAt: Date;
-
-    @ManyToOne(()=>UsersEntity,(users)=>users.comments,{onDelete:"CASCADE",onUpdate:"CASCADE"})
-    users:UsersEntity
-
 }

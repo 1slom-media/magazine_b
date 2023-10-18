@@ -32,9 +32,6 @@ export class UsersEntity {
     @OneToMany(()=>OrdersEntity,(orders)=>orders.users,{onDelete:"CASCADE",onUpdate:"CASCADE"})
     orders:OrdersEntity[]
 
-    @OneToMany(()=>CommentsEntity,(comments)=>comments.users,{onDelete:"CASCADE",onUpdate:"CASCADE"})
-    comments:CommentsEntity[]
-
     @CreateDateColumn({ type: "timestamp" })
     createdAt: Date;
 

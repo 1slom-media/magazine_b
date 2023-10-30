@@ -35,19 +35,19 @@ export class ProductsEntity {
     @IsString()
     description_ru: string
 
-    @Column({ type: "int" })
+    @Column({ type: "int",nullable:true })
     @IsString()
     price: number
 
-    @Column({ type: "varchar" })
+    @Column({ type: "varchar",nullable:true })
     @IsNumber()
     count: string
 
-    @Column({ type: "varchar" })
+    @Column({ type: "varchar",nullable:true })
     @IsNumber()
     color: string
 
-    @Column({ type: "varchar" })
+    @Column({ type: "varchar",nullable:true })
     @IsNumber()
     guarantee: string
 
